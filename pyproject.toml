@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aidecl-validate"
+version = "0.1.0"
+description = "Validate AI Declaration (aidecl) files"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "Apache-2.0"}
+keywords = ["ai", "disclosure", "validation", "compliance", "transparency"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Software Development :: Quality Assurance",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "jsonschema>=4.23",
+    "referencing>=0.35",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+
+[project.urls]
+Homepage = "https://github.com/ai-declaration/cli"
+Repository = "https://github.com/ai-declaration/cli"
+"Bug Tracker" = "https://github.com/ai-declaration/cli/issues"
+Documentation = "https://github.com/ai-declaration/cli#readme"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+aidecl_validate = ["data/*.json", "data/*.sha256", "py.typed"]
