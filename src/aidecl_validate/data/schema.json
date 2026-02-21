@@ -1,0 +1,495 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-declaration.github.io/schema/v1/aidecl.schema.json",
+  "$comment": "Future migration: $id will move to https://aidecl.dev/schema/v1/aidecl.schema.json once domain is registered. additionalProperties is intentionally not set to false for extensibility; strict validation modes in tooling may choose to reject unknown properties.",
+  "title": "AI Declaration",
+  "description": "Machine-readable declaration of AI tool usage in digital work",
+  "type": "object",
+  "required": ["schema_version", "project", "ai_usage", "declaration"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://ai-declaration.github.io/schema/v1/context.jsonld"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "project": {
+      "$comment": "Describes the work being declared. Can be software, data, documents, or other digital artifacts.",
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri"
+        },
+        "version": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string",
+          "enum": ["software", "dataset", "document", "model", "media", "other"],
+          "description": "Type of digital work being declared"
+        }
+      }
+    },
+    "ai_usage": {
+      "$comment": "Core AI involvement details. When used is true, summary becomes required via conditional validation.",
+      "type": "object",
+      "required": ["used"],
+      "properties": {
+        "used": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string",
+          "enum": ["none", "minimal", "moderate", "significant", "extensive"]
+        },
+        "tools": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Tool" }
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "code_proportion": {
+          "$ref": "#/$defs/CodeProportion"
+        },
+        "activities": {
+          "$ref": "#/$defs/Activities"
+        },
+        "ai_proportion": {
+          "$ref": "#/$defs/Proportion"
+        },
+        "generated_content": {
+          "$ref": "#/$defs/GeneratedContent"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "ai_involvement": { "type": "string" },
+              "tools_used": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "risk_management": {
+      "type": "object",
+      "properties": {
+        "risk_mapping": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "measurement": {
+          "type": "object",
+          "properties": {
+            "benchmarks": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "uncertainty_score": { "type": "string" }
+          }
+        },
+        "mitigation_plan": { "type": "string" }
+      }
+    },
+    "explainability": {
+      "type": "object",
+      "properties": {
+        "decision_logic": { "type": "string" },
+        "user_facing_explanation": { "type": "string" },
+        "interpretability_method": { "type": "string" }
+      }
+    },
+    "compliance_eu_ai_act": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["unclassified", "minimal_risk", "limited_risk", "high_risk", "prohibited", "general_purpose_ai"]
+        },
+        "intended_purpose": { "type": "string" },
+        "technical_documentation_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "declaration_of_conformity_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "instructions_for_use_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "human_oversight": { "type": "string" },
+        "ai_generated_content_disclosure": {
+          "type": "boolean",
+          "description": "Whether AI-generated content is disclosed to users per Article 50"
+        },
+        "deepfake_disclosure": {
+          "type": "boolean",
+          "description": "Whether deepfake content is labeled per Article 50(4)"
+        },
+        "emotion_recognition_used": { "type": "boolean" },
+        "biometric_categorisation_used": { "type": "boolean" },
+        "conformity_assessment_body": { "type": "string" },
+        "eu_declaration_reference": { "type": "string" },
+        "ce_marking_applied": { "type": "boolean" },
+        "post_market_monitoring_plan": {
+          "type": "string",
+          "format": "uri"
+        },
+        "serious_incident_reporting": { "type": "boolean" },
+        "fundamental_rights_impact_assessment": { "type": "boolean" },
+        "gpai_model_provider": { "type": "string" },
+        "gpai_systemic_risk": { "type": "boolean" },
+        "training_data_summary_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "if": {
+        "properties": {
+          "classification": { "const": "high_risk" }
+        },
+        "required": ["classification"]
+      },
+      "then": {
+        "required": ["technical_documentation_url", "declaration_of_conformity_url", "human_oversight"]
+      }
+    },
+    "governance": {
+      "type": "object",
+      "properties": {
+        "responsible_officer": { "type": "string" },
+        "organizational_policy_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "ethics_review_status": { "type": "string" },
+        "responsible_officer_contact": {
+          "type": "string",
+          "description": "Contact for governance inquiries"
+        }
+      }
+    },
+    "data_handling": {
+      "type": "object",
+      "properties": {
+        "data_classification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"]
+        },
+        "categories_sent": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "personal_data_sent": { "type": "boolean" },
+        "dpa_completed": {
+          "type": "boolean",
+          "description": "Whether a Data Processing Agreement is in place"
+        },
+        "dpia": {
+          "$comment": "When data_classification is confidential or restricted, conducting a DPIA is recommended (advisory, not enforced by schema)",
+          "type": "object",
+          "properties": {
+            "conducted": { "type": "boolean" },
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "reference": { "type": "string" },
+            "supervisory_authority_consulted": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "environmental": {
+      "type": "object",
+      "properties": {
+        "compute_hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "energy_kwh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "carbon_kg_co2e": {
+          "type": "number",
+          "minimum": 0
+        },
+        "estimation_method": {
+          "type": "string",
+          "enum": ["vendor_reported", "self_estimated", "tool_measured", "unknown"]
+        },
+        "vendor_sustainability_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "review_performed": { "type": "boolean" },
+        "review_type": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dependencies_verified": { "type": "boolean" },
+        "known_issues": { "type": "string" }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "organizational_policy": { "type": "string" },
+        "policy_tier": { "type": "string" },
+        "frameworks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "declaration": {
+      "$comment": "Attestation metadata. declared_by identifies the person or team making the declaration.",
+      "type": "object",
+      "required": ["date", "declared_by"],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "declared_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_by": {
+          "type": "string"
+        },
+        "review_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "next_review": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string",
+          "description": "Contact email or URL for declaration inquiries"
+        },
+        "organization": {
+          "type": "string",
+          "description": "Organization responsible for this declaration"
+        },
+        "signature": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["pgp_detached", "sigstore_bundle", "jws"]
+            },
+            "key_fingerprint": { "type": "string" },
+            "signature_ref": { "type": "string" },
+            "timestamp_token": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "if": {
+    "properties": {
+      "ai_usage": {
+        "properties": {
+          "used": { "const": true }
+        }
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "ai_usage": {
+        "required": ["summary"]
+      }
+    }
+  },
+  "$defs": {
+    "Tool": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["assistant", "agent", "model_runner", "standalone", "pipeline", "fine_tuned"]
+        },
+        "hosting": {
+          "type": "string",
+          "enum": ["cloud_vendor", "cloud_self_hosted", "on_premise", "local_offline", "unknown"]
+        },
+        "purpose": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "version": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "base_model": {
+          "type": "string",
+          "description": "Base model identifier for fine-tuned or custom models"
+        },
+        "pipeline_steps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ordered list of pipeline steps when type is pipeline"
+        },
+        "data_region": {
+          "type": "string"
+        },
+        "period": {
+          "type": "object",
+          "properties": {
+            "start": { "type": "string", "format": "date" },
+            "end": { "type": "string", "format": "date" }
+          }
+        },
+        "trains_on_data": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "code_generation": { "type": "boolean" },
+        "code_completion": { "type": "boolean" },
+        "code_review": { "type": "boolean" },
+        "documentation": { "type": "boolean" },
+        "testing": { "type": "boolean" },
+        "debugging": { "type": "boolean" },
+        "infrastructure": { "type": "boolean" },
+        "refactoring": { "type": "boolean" }
+      }
+    },
+    "CodeProportion": {
+      "$comment": "JSON Schema cannot enforce that percentages sum to 100; this is a semantic check for validators",
+      "type": "object",
+      "properties": {
+        "ai_generated_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "ai_assisted_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "human_only_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "method": {
+          "type": "string",
+          "enum": ["self_reported", "tool_measured", "audit_estimated"]
+        },
+        "estimation_notes": {
+          "type": "string",
+          "description": "Confidence notes on how proportions were estimated"
+        }
+      }
+    },
+    "Activities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "List of activities where AI was involved. Use predefined vocabulary per content type or free-text values."
+    },
+    "Proportion": {
+      "$comment": "Qualitative label or exact percentages (or both). Percentage sum validation is a semantic check for validators.",
+      "type": "object",
+      "properties": {
+        "qualitative": {
+          "type": "string",
+          "enum": ["entirely_human", "mostly_human", "mixed", "mostly_ai", "entirely_ai"]
+        },
+        "ai_generated_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "ai_assisted_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "human_only_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "method": {
+          "type": "string",
+          "enum": ["self_reported", "tool_measured", "audit_estimated"]
+        }
+      }
+    },
+    "GeneratedContent": {
+      "type": "object",
+      "properties": {
+        "documentation_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "synthetic_data_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "artifacts": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
