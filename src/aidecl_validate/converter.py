@@ -32,7 +32,7 @@ def convert_file(filepath, output_format, output_path=None):
                             sort_keys=False, allow_unicode=True)
 
     output_path.write_text(content, encoding="utf-8")
-    print("Converted {} -> {}".format(filepath, output_path))
+    print(f"Converted {filepath} -> {output_path}")
     return str(output_path), None
 
 
