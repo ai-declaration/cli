@@ -129,7 +129,7 @@ def main():
     sub = parser.add_subparsers(dest="command")
 
     # validate
-    p_val = sub.add_parser("validate", help="validate declaration files")
+    p_val = sub.add_parser("validate", help="check declaration files against schema")
     p_val.add_argument("files", nargs="+", help="files to validate")
     p_val.add_argument("-v", "--verbose", action="store_true")
     p_val.add_argument("-f", "--output-format", choices=["text", "json", "github-actions"], default="text")
