@@ -118,17 +118,64 @@ def _print_github_actions(result):
 def main():
     parser = argparse.ArgumentParser(
         prog="aidecl-validate",
-        description="Validate AI Declaration (aidecl) files",
+        description="CLI for AI Declaration (aidecl) files",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument("--strict", action="store_true", help="treat warnings as errors")
+    parser.add_argument("--quiet", action="store_true", help="suppress output, only set exit code")
+    parser.add_argument("--no-color", action="store_true", help="disable color output")
+    parser.add_argument("--schema-url", help="custom schema URL or file path")
 
-    # stub: only validate for now, more subcommands added later
-    parser.add_argument("files", nargs="+", help="declaration files to validate")
-    parser.add_argument("-v", "--verbose", action="store_true")
-    parser.add_argument("-f", "--output-format", choices=["text", "json", "github-actions"], default="text")
+    sub = parser.add_subparsers(dest="command")
+
+    # validate
+    p_val = sub.add_parser("validate", help="validate declaration files")
+    p_val.add_argument("files", nargs="+", help="files to validate")
+    p_val.add_argument("-v", "--verbose", action="store_true")
+    p_val.add_argument("-f", "--output-format", choices=["text", "json", "github-actions"], default="text")
+
+    # convert
+    p_conv = sub.add_parser("convert", help="convert between YAML and JSON")
+    p_conv.add_argument("file", help="input file")
+    p_conv.add_argument("-f", "--output-format", choices=["json", "yaml"], required=True)
+    p_conv.add_argument("-o", "--output", help="output file path")
+
+    # init
+    p_init = sub.add_parser("init", help="create a new declaration file")
+    p_init.add_argument("-f", "--format", choices=["yaml", "json"], default="yaml")
+    p_init.add_argument("-o", "--output", help="output file path")
 
     args = parser.parse_args()
-    sys.exit(cmd_validate(args))
+
+    if args.no_color:
+        colors.disable()
+
+    # backwards compat: no subcommand + positional args -> validate
+    if args.command is None:
+        # reparse with files as positional
+        args.files = []
+        remaining = sys.argv[1:]
+        remaining = [a for a in remaining if not a.startswith("-")]
+        if remaining:
+            args.command = "validate"
+            args.files = remaining
+            args.verbose = "--verbose" in sys.argv or "-v" in sys.argv
+            args.output_format = "text"
+        else:
+            parser.print_help()
+            return 0
+
+    from aidecl_validate.converter import cmd_convert
+    from aidecl_validate.init_cmd import cmd_init
+
+    if args.command == "validate":
+        sys.exit(cmd_validate(args))
+    elif args.command == "convert":
+        sys.exit(cmd_convert(args))
+    elif args.command == "init":
+        sys.exit(cmd_init(args))
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":

@@ -32,6 +32,9 @@ Repository = "https://github.com/ai-declaration/cli"
 "Bug Tracker" = "https://github.com/ai-declaration/cli/issues"
 Documentation = "https://github.com/ai-declaration/cli#readme"
 
+[project.scripts]
+aidecl-validate = "aidecl_validate.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
