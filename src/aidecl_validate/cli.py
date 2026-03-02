@@ -90,18 +90,21 @@ def _print_text(result, verbose=False):
         label = colors.colorize("FAIL", colors.RED)
         print(f"{label} [{fmt}]: {fpath}")
         for e in result["schema_errors"]:
-            print(f"  {e}")
+            print(f"    {e}")
     elif result["semantic_errors"]:
         label = colors.colorize("FAIL", colors.RED)
         print(f"{label} [{fmt}]: {fpath}")
         for e in result["semantic_errors"]:
-            print(f"  {e}")
+            print(f"    {e}")
     elif result["warnings"]:
         label = colors.colorize("PASS", colors.GREEN)
         warn = colors.colorize("(with warnings)", colors.YELLOW)
         print(f"{label} {warn} [{fmt}]: {fpath}")
-        for w in result["warnings"]:
-            print(f"  {w}")
+        if verbose:
+            for w in result["warnings"]:
+                print(f"    {w}")
+        else:
+            print(f"    {len(result['warnings'])} warning(s)")
     else:
         label = colors.colorize("PASS", colors.GREEN)
         print(f"{label} [{fmt}]: {fpath}")
