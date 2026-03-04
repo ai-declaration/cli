@@ -11,7 +11,10 @@ def validate_schema(data, schema, verbose=False):
     registry = Registry()
     validator = Draft202012Validator(schema, registry=registry)
 
-    errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
+    try:
+        errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
+    except Exception as e:
+        return [f"validation error: {e}"]
 
     result = []
     for err in errors:

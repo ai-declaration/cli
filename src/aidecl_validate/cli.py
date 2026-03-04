@@ -16,9 +16,18 @@ EXIT_FILE_ERROR = 3
 
 def validate_file(filepath, schema, verbose=False):
     """Validate a single file. Returns (passed, schema_errors, warnings, sem_errors, fmt)."""
+    from pathlib import Path
+    p = Path(filepath)
+
+    if not p.exists():
+        return False, [f"file not found: {filepath}"], [], [], None
+
     data, fmt, err = load_file(filepath)
     if err:
         return False, [err], [], [], None
+
+    if verbose and p.stat().st_size > 1_000_000:
+        print(f"  note: large file ({p.stat().st_size} bytes)", file=sys.stderr)
 
     schema_errors = validate_schema(data, schema, verbose=verbose)
     if schema_errors:
