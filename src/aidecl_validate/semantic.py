@@ -33,8 +33,7 @@ def validate_semantics(data, verbose=False):
         assisted = prop.get("ai_assisted_percent", 0)
         human = prop.get("human_only_percent", 0)
         total = gen + assisted + human
-        # BUG: should skip when all are 0, but doesnt
-        if abs(total - 100) > 5:
+        if total > 0 and abs(total - 100) > 5:
             warnings.append(
                 "code_proportion percentages sum to {} (expected ~100)".format(total)
             )
