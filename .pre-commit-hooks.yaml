@@ -1,0 +1,6 @@
+- id: aidecl-validate
+  name: Validate AI Declaration files
+  entry: aidecl-validate validate
+  language: python
+  files: (^|/)aidecl\.(json|ya?ml)$
+  types: [file]

@@ -132,6 +132,52 @@ Validates structure against JSON Schema Draft 2020-12: required fields, types, e
 | 13 | warn | Tool trains on data but no data handling section |
 | 14 | warn | Next review date is in the past |
 
+## Integration
+
+### GitHub Actions
+
+```yaml
+- name: Validate AI Declaration
+  run: |
+    pip install aidecl-validate
+    aidecl-validate validate --output-format github-actions aidecl.yaml
+```
+
+### Pre-commit framework
+
+Add to your `.pre-commit-config.yaml`:
+
+```yaml
+repos:
+  - repo: https://github.com/ai-declaration/cli
+    rev: v0.1.0
+    hooks:
+      - id: aidecl-validate
+```
+
+### Git pre-commit hook
+
+```bash
+#!/bin/sh
+aidecl-validate validate aidecl.yaml --quiet
+```
+
+## Related Standards
+
+| Standard | Relationship |
+|----------|-------------|
+| codemeta.json | Project metadata; aidecl adds AI transparency |
+| CITATION.cff | Citation metadata; complementary |
+| SPDX 3.0 AI Profile | License + AI BOM; aidecl is lighter for declarations |
+| CycloneDX ML-BOM | ML component inventory; different scope |
+| C2PA | Content authenticity; media-focused |
+| W3C PROV | Provenance ontology; aidecl JSON-LD maps to PROV-O |
+
+## Related Projects
+
+- [schema](https://github.com/ai-declaration/schema) -- Schema definition and examples
+- [web](https://github.com/ai-declaration/web) -- Web-based generator and validator
+
 ## Privacy Note
 
 The `declared_by` field identifies who made the declaration. For public repositories, consider using team names or roles instead of individual names.
