@@ -54,8 +54,6 @@ def init_disclosure(output_format="yaml", output_path=None):
         }
     }
 
-    print("DEBUG:", template)
-
     if output_format == "json":
         ext = ".json"
         content = json.dumps(template, indent=2, ensure_ascii=False) + "\n"
