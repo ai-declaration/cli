@@ -46,6 +46,7 @@ def valid_ai_data():
 
 
 def make_file(tmp_path, data, fmt="yaml"):
+    """Write test data to a temp file and return its path."""
     if fmt == "yaml":
         p = tmp_path / "test.yaml"
         p.write_text(yaml.dump(data, default_flow_style=False))
