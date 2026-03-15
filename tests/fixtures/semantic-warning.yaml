@@ -1,0 +1,16 @@
+schema_version: "1.0.0"
+
+project:
+  name: test-project
+
+ai_usage:
+  used: true
+  summary: Testing warnings
+  level: extensive
+  tools:
+    - name: TestTool
+      type: assistant
+
+declaration:
+  date: "2099-12-31"
+  declared_by: Future Team

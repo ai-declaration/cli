@@ -1,0 +1,17 @@
+schema_version: "1.0.0"
+
+project:
+  name: test-project
+  content_type: software
+
+ai_usage:
+  used: true
+  summary: Basic AI assistance for code completion
+  level: minimal
+  tools:
+    - name: GitHub Copilot
+      type: assistant
+
+declaration:
+  date: "2025-01-15"
+  declared_by: Dev Team
