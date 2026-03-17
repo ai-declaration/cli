@@ -1,6 +1,6 @@
 """aidecl-validate: CLI tool for AI Declaration files."""
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 from aidecl_validate.loader import load_file, load_schema
 from aidecl_validate.schema import validate_schema

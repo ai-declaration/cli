@@ -178,6 +178,17 @@ aidecl-validate validate aidecl.yaml --quiet
 - [schema](https://github.com/ai-declaration/schema) -- Schema definition and examples
 - [web](https://github.com/ai-declaration/web) -- Web-based generator and validator
 
+## Shell Completions
+
+Bash:
+```bash
+eval "$(register-python-argcomplete aidecl-validate)"
+```
+
+Or add to your `.bashrc` for persistent completions.
+
+Fish and Zsh: use `argcomplete` or generate completions manually from the `--help` output.
+
 ## Privacy Note
 
 The `declared_by` field identifies who made the declaration. For public repositories, consider using team names or roles instead of individual names.
@@ -198,4 +209,4 @@ pytest --cov
 
 ## License
 
-Apache-2.0. The bundled `schema.json` is from [schema](https://github.com/ai-declaration/schema) (CC BY 4.0).
+Apache-2.0. The bundled `schema.json` is from [schema](https://github.com/ai-declaration/schema) (CC BY-SA 4.0).
