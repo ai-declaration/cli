@@ -137,7 +137,7 @@ Validates structure against JSON Schema Draft 2020-12: required fields, types, e
 ### GitHub Actions
 
 ```yaml
-- name: Validate AI Declaration
+- name: Validate AI Declaration Format
   run: |
     pip install aidecl-validate
     aidecl-validate validate --output-format github-actions aidecl.yaml

@@ -59,7 +59,7 @@ def init_disclosure(output_format="yaml", output_path=None):
         content = json.dumps(template, indent=2, ensure_ascii=False) + "\n"
     else:
         ext = ".yaml"
-        header = "# AI Declaration (aidecl)\n"
+        header = "# AI Declaration Format (aidecl)\n"
         header += "# Use a role or team name rather than personal name if this file will be public\n\n"
         content = header + yaml.dump(template, default_flow_style=False,
                                      sort_keys=False, allow_unicode=True)

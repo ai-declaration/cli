@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ai-declaration.github.io/schema/v1/aidecl.schema.json",
   "$comment": "Future migration: $id will move to https://aidecl.dev/schema/v1/aidecl.schema.json once domain is registered. additionalProperties is intentionally not set to false for extensibility; strict validation modes in tooling may choose to reject unknown properties.",
-  "title": "AI Declaration",
+  "title": "AI Declaration Format",
   "description": "Machine-readable declaration of AI tool usage in digital work",
   "type": "object",
   "required": ["schema_version", "project", "ai_usage", "declaration"],
