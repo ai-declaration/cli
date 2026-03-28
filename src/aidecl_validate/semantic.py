@@ -98,7 +98,7 @@ def validate_semantics(data, verbose=False):
     # rule 14: next_review in the past
     next_rev = _parse_date(decl.get("next_review"))
     if next_rev and next_rev < date.today():
-        warnings.append("next_review date ({}) is in the past -- declaration overdue for review".format(
+        warnings.append("next_review date ({}) is in the past, declaration may be overdue for review".format(
             decl.get("next_review")))
 
     return warnings, errors

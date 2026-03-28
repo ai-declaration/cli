@@ -175,8 +175,8 @@ aidecl-validate validate aidecl.yaml --quiet
 
 ## Related Projects
 
-- [schema](https://github.com/ai-declaration/schema) -- Schema definition and examples
-- [web](https://github.com/ai-declaration/web) -- Web-based generator and validator
+- [schema](https://github.com/ai-declaration/schema): schema definition and examples
+- [web](https://github.com/ai-declaration/web): web-based generator and validator
 
 ## Shell Completions
 
