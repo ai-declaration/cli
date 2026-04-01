@@ -1,7 +1,7 @@
 import pytest
 from datetime import date, timedelta
 
-from aidecl_validate.semantic import validate_semantics
+from aidecl.semantic import validate_semantics
 
 
 def _base():

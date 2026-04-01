@@ -1,6 +1,6 @@
 import pytest
 
-from aidecl_validate.schema import validate_schema
+from aidecl.schema import validate_schema
 
 
 def test_valid_data(schema, valid_data):

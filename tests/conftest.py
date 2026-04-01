@@ -2,7 +2,7 @@ import json
 import pytest
 import yaml
 
-from aidecl_validate.loader import load_schema
+from aidecl.loader import load_schema
 
 
 @pytest.fixture(scope="session")

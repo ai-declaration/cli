@@ -10,7 +10,7 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 def run_cli(*args):
     result = subprocess.run(
-        [sys.executable, "-m", "aidecl_validate"] + list(args),
+        [sys.executable, "-m", "aidecl"] + list(args),
         capture_output=True, text=True, timeout=30,
     )
     return result
@@ -65,7 +65,7 @@ def test_quiet_mode():
 def test_version():
     r = run_cli("--version")
     assert r.returncode == 0
-    assert "aidecl-validate" in r.stdout
+    assert "aidecl" in r.stdout
 
 
 def test_no_color():

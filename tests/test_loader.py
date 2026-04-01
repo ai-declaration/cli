@@ -2,7 +2,7 @@ import json
 import yaml
 import pytest
 
-from aidecl_validate.loader import load_file, load_schema
+from aidecl.loader import load_file, load_schema
 
 
 def test_load_json(tmp_path):
