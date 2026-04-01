@@ -3,7 +3,7 @@ requires = ["setuptools>=75.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aidecl-validate"
+name = "aidecl"
 version = "0.3.0"
 description = "Validate AI Declaration (aidecl) files"
 readme = "README.md"
@@ -33,10 +33,10 @@ Repository = "https://github.com/ai-declaration/cli"
 Documentation = "https://github.com/ai-declaration/cli#readme"
 
 [project.scripts]
-aidecl-validate = "aidecl_validate.cli:main"
+aidecl = "aidecl.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-aidecl_validate = ["data/*.json", "data/*.sha256", "py.typed"]
+aidecl = ["data/*.json", "data/*.sha256", "py.typed"]
