@@ -1,3 +1,3 @@
-from aidecl_validate.cli import main
+from aidecl.cli import main
 
 main()

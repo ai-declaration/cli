@@ -2,11 +2,11 @@ import argparse
 import json
 import sys
 
-from aidecl_validate import __version__
-from aidecl_validate.loader import load_file, load_schema
-from aidecl_validate.schema import validate_schema
-from aidecl_validate.semantic import validate_semantics
-from aidecl_validate import colors
+from aidecl import __version__
+from aidecl.loader import load_file, load_schema
+from aidecl.schema import validate_schema
+from aidecl.semantic import validate_semantics
+from aidecl import colors
 
 EXIT_OK = 0
 EXIT_SEMANTIC_ERROR = 1
@@ -129,7 +129,7 @@ def _print_github_actions(result):
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="aidecl-validate",
+        prog="aidecl",
         description="CLI for AI Declaration (aidecl) files",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -177,8 +177,8 @@ def main():
             parser.print_help()
             return 0
 
-    from aidecl_validate.converter import cmd_convert
-    from aidecl_validate.init_cmd import cmd_init
+    from aidecl.converter import cmd_convert
+    from aidecl.init_cmd import cmd_init
 
     if args.command == "validate":
         sys.exit(cmd_validate(args))

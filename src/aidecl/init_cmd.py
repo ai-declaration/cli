@@ -75,7 +75,7 @@ def init_disclosure(output_format="yaml", output_path=None):
 
     output_path.write_text(content, encoding="utf-8")
     print(f"Created {output_path}")
-    print(f"Next: edit the file, then run 'aidecl-validate validate {output_path.name}'")
+    print(f"Next: edit the file, then run 'aidecl validate {output_path.name}'")
     return str(output_path), None
 
 

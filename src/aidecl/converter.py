@@ -3,7 +3,7 @@ from pathlib import Path
 
 import yaml
 
-from aidecl_validate.loader import load_file
+from aidecl.loader import load_file
 
 
 def convert_file(filepath, output_format, output_path=None):
