@@ -1,4 +1,4 @@
-# Contributing to aidecl-validate
+# Contributing to aidecl
 
 Thanks for your interest in contributing.
 
@@ -22,7 +22,7 @@ Open an issue on the [GitHub issue tracker](https://github.com/ai-declaration/cl
 
 ```bash
 git clone https://github.com/ai-declaration/cli.git
-cd aidecl-validate
+cd aidecl
 pip install -e ".[dev]"
 pytest
 ```

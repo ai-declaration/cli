@@ -1,5 +1,5 @@
 {
-  description = "aidecl-validate development environment";
+  description = "aidecl development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -24,7 +24,7 @@
           ];
 
           shellHook = ''
-            echo "aidecl-validate dev environment ready"
+            echo "aidecl dev environment ready"
           '';
         };
       });

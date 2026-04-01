@@ -1,4 +1,4 @@
-# aidecl-validate
+# aidecl
 
 Command-line tool for validating, converting, and creating AI Declaration (aidecl) files.
 
@@ -7,14 +7,14 @@ AI Declaration files describe how AI tools were used in the creation of software
 ## Installation
 
 ```bash
-pip install aidecl-validate
+pip install aidecl
 ```
 
 For development:
 
 ```bash
 git clone https://github.com/ai-declaration/cli.git
-cd aidecl-validate
+cd aidecl
 pip install -e ".[dev]"
 ```
 
@@ -22,12 +22,12 @@ pip install -e ".[dev]"
 
 ```bash
 # Create a new declaration file
-aidecl-validate init --format yaml
+aidecl init --format yaml
 
 # Edit aidecl.yaml with your project details
 
 # Validate it
-aidecl-validate validate aidecl.yaml
+aidecl validate aidecl.yaml
 ```
 
 ## Usage
@@ -37,12 +37,12 @@ aidecl-validate validate aidecl.yaml
 Check one or more declaration files against the schema:
 
 ```bash
-aidecl-validate validate aidecl.yaml
-aidecl-validate validate aidecl.json another.yaml
-aidecl-validate validate --verbose aidecl.yaml
-aidecl-validate validate --output-format json aidecl.yaml
-aidecl-validate validate --strict aidecl.yaml  # warnings become errors
-aidecl-validate validate --quiet aidecl.yaml    # only exit code, no output
+aidecl validate aidecl.yaml
+aidecl validate aidecl.json another.yaml
+aidecl validate --verbose aidecl.yaml
+aidecl validate --output-format json aidecl.yaml
+aidecl validate --strict aidecl.yaml  # warnings become errors
+aidecl validate --quiet aidecl.yaml    # only exit code, no output
 ```
 
 Sample output:
@@ -61,8 +61,8 @@ FAIL [yaml]: aidecl.yaml
 Convert between YAML and JSON:
 
 ```bash
-aidecl-validate convert aidecl.yaml -f json
-aidecl-validate convert aidecl.json -f yaml -o output.yaml
+aidecl convert aidecl.yaml -f json
+aidecl convert aidecl.json -f yaml -o output.yaml
 ```
 
 ### init
@@ -70,9 +70,9 @@ aidecl-validate convert aidecl.json -f yaml -o output.yaml
 Create a template declaration file:
 
 ```bash
-aidecl-validate init
-aidecl-validate init --format json
-aidecl-validate init --output my-project.yaml
+aidecl init
+aidecl init --format json
+aidecl init --output my-project.yaml
 ```
 
 The init command auto-detects your project name and git config for sensible defaults.
@@ -139,8 +139,8 @@ Validates structure against JSON Schema Draft 2020-12: required fields, types, e
 ```yaml
 - name: Validate AI Declaration Format
   run: |
-    pip install aidecl-validate
-    aidecl-validate validate --output-format github-actions aidecl.yaml
+    pip install aidecl
+    aidecl validate --output-format github-actions aidecl.yaml
 ```
 
 ### Pre-commit framework
@@ -152,14 +152,14 @@ repos:
   - repo: https://github.com/ai-declaration/cli
     rev: v0.1.0
     hooks:
-      - id: aidecl-validate
+      - id: aidecl
 ```
 
 ### Git pre-commit hook
 
 ```bash
 #!/bin/sh
-aidecl-validate validate aidecl.yaml --quiet
+aidecl validate aidecl.yaml --quiet
 ```
 
 ## Related Standards
@@ -182,7 +182,7 @@ aidecl-validate validate aidecl.yaml --quiet
 
 Bash:
 ```bash
-eval "$(register-python-argcomplete aidecl-validate)"
+eval "$(register-python-argcomplete aidecl)"
 ```
 
 Or add to your `.bashrc` for persistent completions.
@@ -195,7 +195,7 @@ The `declared_by` field identifies who made the declaration. For public reposito
 
 ## Compatibility
 
-| aidecl-validate version | Supported schema versions |
+| aidecl version | Supported schema versions |
 |------------------------|--------------------------|
 | 0.1.x | 1.0.0 |
 
