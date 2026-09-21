@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=75.0"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,14 +8,19 @@ version = "0.3.0"
 description = "Validate AI Declaration (aidecl) files"
 readme = "README.md"
 requires-python = ">=3.12"
-license = {text = "Apache-2.0"}
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Faruk Diblen", email = "faruk.diblen@resoftlabs.com" }]
 keywords = ["ai", "disclosure", "validation", "compliance", "transparency"]
 classifiers = [
     "Development Status :: 3 - Alpha",
+    "Environment :: Console",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Quality Assurance",
     "Intended Audience :: Developers",
+    "Typing :: Typed",
 ]
 dependencies = [
     "jsonschema>=4.23",
@@ -40,3 +45,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 aidecl = ["data/*.json", "data/*.sha256", "py.typed"]
+
+[tool.pytest.ini_options]
+# src layout, so the package is not importable from the repo root without this
+pythonpath = ["src"]
+testpaths = ["tests"]
