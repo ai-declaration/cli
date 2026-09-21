@@ -1,0 +1,34 @@
+schema_version: "1.0.0"
+
+project:
+  name: aidecl
+  repository: https://github.com/ai-declaration/cli
+  content_type: software
+  license: Apache-2.0
+
+ai_usage:
+  used: true
+  summary: >-
+    AI assistant used extensively for writing the CLI tool, validation
+    logic, semantic rules, test suite, and project documentation.
+  level: extensive
+  tools:
+    - name: Claude
+      vendor: Anthropic
+      type: assistant
+      hosting: cloud_vendor
+      purpose:
+        - code generation
+        - test generation
+        - debugging
+        - documentation
+      trains_on_data: false
+  activities:
+    - code_generation
+    - testing
+    - documentation
+    - debugging
+
+declaration:
+  date: "2026-04-01"
+  declared_by: Faruk D.
