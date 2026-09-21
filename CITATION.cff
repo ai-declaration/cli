@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+type: software
+title: aidecl
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Diblen
+    given-names: Faruk
+    email: faruk.diblen@resoftlabs.com
+    affiliation: ReSoft Labs B.V.
+repository-code: https://github.com/ai-declaration/cli
+license: Apache-2.0
+version: 0.3.0
+date-released: "2026-03-28"
+keywords:
+  - ai-transparency
+  - ai-declaration
+  - validator
+  - cli
+  - python
