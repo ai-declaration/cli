@@ -7,8 +7,14 @@ AI Declaration files describe how AI tools were used in the creation of software
 ## Installation
 
 ```bash
+pip install aidecl
+```
+
+For development:
+
+```bash
 git clone https://github.com/ai-declaration/cli.git
-cd aidecl
+cd cli
 pip install -e ".[dev]"
 ```
 
